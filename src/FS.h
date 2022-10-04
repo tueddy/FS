@@ -70,16 +70,14 @@ public:
     }
     size_t position() const;
     size_t size() const;
-    bool setBufferSize(size_t size);
     void close();
     operator bool() const;
     time_t getLastWrite();
-    const char* path() const;
     const char* name() const;
 
     boolean isDirectory(void);
-	boolean seekDir(long position);
     File openNextFile(const char* mode = FILE_READ);
+    boolean seekDir(long position);
 	String getNextFileName(void);
     void rewindDirectory(void);
 
@@ -92,8 +90,8 @@ class FS
 public:
     FS(FSImplPtr impl) : _impl(impl) { }
 
-    File open(const char* path, const char* mode = FILE_READ, const bool create = false);
-    File open(const String& path, const char* mode = FILE_READ, const bool create = false);
+    File open(const char* path, const char* mode = FILE_READ);
+    File open(const String& path, const char* mode = FILE_READ);
 
     bool exists(const char* path);
     bool exists(const String& path);
