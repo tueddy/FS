@@ -21,6 +21,8 @@
 #ifndef FS_H
 #define FS_H
 
+#define HAS_FILEEXPLORER_SPEEDUP
+
 #include <memory>
 #include <Arduino.h>
 
