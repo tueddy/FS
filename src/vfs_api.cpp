@@ -540,6 +540,7 @@ String VFSFileImpl::getNextFileName()
 	// add trailing slash for detecting directory
 	if (file->d_type == DT_DIR) {
 		name = "/" + name;	
+	}
     return name;
 }
 
