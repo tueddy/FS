@@ -203,7 +203,6 @@ String File::getNextFileName(void)
 
 }
 
-
 void File::rewindDirectory(void)
 {
     if (!*this) {

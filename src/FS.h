@@ -21,6 +21,8 @@
 #ifndef FS_H
 #define FS_H
 
+#define HAS_FILEEXPLORER_SPEEDUP
+
 #include <memory>
 #include <Arduino.h>
 
@@ -78,9 +80,9 @@ public:
     const char* name() const;
 
     boolean isDirectory(void);
-	boolean seekDir(long position);
+    boolean seekDir(long position);
     File openNextFile(const char* mode = FILE_READ);
-	String getNextFileName(void);
+    String getNextFileName(void);
     void rewindDirectory(void);
 
 protected:
