@@ -437,10 +437,29 @@ String VFSFileImpl::getNextFileName()
         name += "/";
     }
     name += fname;
-	// add trailing slash for detecting directory
-	if (file->d_type == DT_DIR) {
-		name = "/" + name;	
-	}
+    return name;
+}
+
+String VFSFileImpl::getNextFileName(bool *isDir)
+{
+    if (!_isDirectory || !_d) {
+        return "";
+    }
+    struct dirent *file = readdir(_d);
+    if (file == NULL) {
+        return "";
+    }
+    if (file->d_type != DT_REG && file->d_type != DT_DIR) {
+        return "";
+    }
+    String fname = String(file->d_name);
+    String name = String(_path);
+    if (!fname.startsWith("/") && !name.endsWith("/")) {
+        name += "/";
+    }
+    name += fname;
+	// check entry is a directory
+	*isDir = (file->d_type == DT_DIR);
     return name;
 }
 
