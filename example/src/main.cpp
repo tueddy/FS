@@ -26,26 +26,30 @@ void setup() {
   Serial.print(root_path);
   Serial.println("\"");
   File root = SD.open(root_path);
-  if(root == NULL){
+  if(!root){
     Serial.println("Failed to open SD; Halt!");
     while(1) delay(1000);
   }
 
   Serial.println("Test reading speed with new getNextFileName");
   String filename;
+  bool isDir;
   //Return true if have next file, false if not
   unsigned long startTime = millis();
   int folderCnt = 0;
-  filename = root.getNextFileName();
+  filename = root.getNextFileName(&isDir);
   while (filename != "") {
-    //Serial.println(filename);
+    if (isDir) {
+//      Serial.print("--");
+    }
+//    Serial.println(filename);
     ++folderCnt;
-   filename = root.getNextFileName();
+   filename = root.getNextFileName(&isDir);
   }
   unsigned long endTime = millis();
   Serial.print("getNextFileName(), done reading root-directory ");
   Serial.print(folderCnt);
-  Serial.print(" elemts in ");
+  Serial.print(" elements in ");
   Serial.print(endTime - startTime);
   Serial.print(" ms = ");
   Serial.print((float)(endTime - startTime)/folderCnt);
@@ -55,7 +59,7 @@ void setup() {
   Serial.println("Test reading speed with old openNextFile");
   folderCnt = 0;
   root = SD.open(root_path);
-  if(root == NULL){
+  if(!root){
     Serial.println("Failed to open SD; Halt!");
     while(1) delay(1000);
   }
@@ -64,9 +68,10 @@ void setup() {
   startTime = millis();
   while(file){
     if(file.isDirectory()){
+//      Serial.print("--");
      }
     ++folderCnt;
-    //Serial.println(file.path());
+//    Serial.println(file.path());
     file = root.openNextFile();
   }
   endTime = millis();
